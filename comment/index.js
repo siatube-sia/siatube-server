@@ -8,7 +8,8 @@ import {
 } from "../shared/youtube-request-config.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 // YouTube Constants
 const CLIENT_VERSION = REQUEST_CLIENTS.comment.clientVersion;

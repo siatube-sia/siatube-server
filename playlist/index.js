@@ -8,7 +8,7 @@ import {
 } from "../shared/youtube-request-config.js";
 
 const app = express();
-const port = 3011;
+const port = process.env.PORT || 3011;
 app.use(cors());
 
 // エンドポイント

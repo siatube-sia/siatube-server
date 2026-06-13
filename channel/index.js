@@ -3,7 +3,7 @@ import express from "express";
 import { Innertube } from "youtubei.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 let youtube;
 

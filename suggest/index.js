@@ -3,7 +3,7 @@ import https from "https";
 import { createGoogleSuggestHeaders } from "../shared/youtube-request-config.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   const keyword = req.query.keyword;
