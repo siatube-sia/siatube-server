@@ -13,8 +13,6 @@
 | Suggest | `suggest-api` | `suggest/index.js` | `http://localhost:8004` |
 | Playlist | `playlist-api` | `playlist/index.js` | `http://localhost:8005` |
 
-Note: `playlist/index.js` のデフォルトは `8005` です。`800` で使う場合は `PORT=800` を指定して pm2 起動し直してください。
-
 ## 共通事項
 
 - すべて JSON を返します。
