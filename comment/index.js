@@ -8,7 +8,7 @@ import {
 } from "../shared/youtube-request-config.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 
 // YouTube Constants
@@ -280,7 +280,7 @@ async function fetchReplies(videoId, continuation) {
 
 // --- Endpoints ---
 
-app.get("/api/comments", async (req, res) => {
+app.get(["/api/comments", "/comment/comments"], async (req, res) => {
   try {
     const { videoId, sort = "top", continuation } = req.query;
     
@@ -309,7 +309,7 @@ app.get("/api/comments", async (req, res) => {
   }
 });
 
-app.get("/api/replies", async (req, res) => {
+app.get(["/api/replies", "/comment/replies"], async (req, res) => {
   try {
     const { videoId, continuation } = req.query;
     
@@ -334,7 +334,7 @@ app.get("/api/replies", async (req, res) => {
   }
 });
 
-app.get("/api/raw", async (req, res) => {
+app.get(["/api/raw", "/comment/raw"], async (req, res) => {
   try {
     const { videoId, continuation } = req.query;
     

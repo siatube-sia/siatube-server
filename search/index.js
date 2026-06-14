@@ -6,7 +6,7 @@ import {
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8002;
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 /**
@@ -288,9 +288,9 @@ function extractYouTubeData(json) {
 // ==========================================
 // API エンドポイント
 // ==========================================
-app.get("/search", async (req, res) => {
+app.get(["/search", "/search/:q"], async (req, res) => {
   try {
-    const q = req.query.q;
+    const q = req.query.q || req.params.q;
     const token = req.query.token; 
 
     if (!q && !token) {

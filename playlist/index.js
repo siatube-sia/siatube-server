@@ -8,7 +8,7 @@ import {
 } from "../shared/youtube-request-config.js";
 
 const app = express();
-const port = process.env.PORT || 3011;
+const port = process.env.PORT || 8005;
 app.use(cors());
 
 // エンドポイント
@@ -372,7 +372,7 @@ async function handleNormalPlaylist(listId, token) {
 // ルート設定
 // ==================================================
 
-app.get("/api/playlist/:id", async (req, res) => {
+app.get(["/api/playlist/:id", "/playlist/:id"], async (req, res) => {
   let rawParams = req.params.id;
   
   let token = req.query.token || null;

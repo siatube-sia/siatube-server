@@ -3,7 +3,7 @@ import express from "express";
 import { Innertube } from "youtubei.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8003;
 
 let youtube;
 
@@ -60,7 +60,7 @@ async function fetchImageAsBase64(videoId, quality = "mqdefault") {
 // API
 // GET /api/channel/:id
 // =========================
-app.get("/api/channel/:id", async (req, res) => {
+app.get(["/api/channel/:id", "/channel/:id"], async (req, res) => {
   const channelId = req.params.id;
 
   if (!youtube) {

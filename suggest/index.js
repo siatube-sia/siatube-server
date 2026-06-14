@@ -3,10 +3,10 @@ import https from "https";
 import { createGoogleSuggestHeaders } from "../shared/youtube-request-config.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8004;
 
-app.get("/", (req, res) => {
-  const keyword = req.query.keyword;
+app.get(["/", "/suggest", "/suggest/:keyword"], (req, res) => {
+  const keyword = req.query.keyword || req.params.keyword;
 
   if (!keyword) {
     return res.status(400).json({

@@ -10,7 +10,7 @@ import {
  * Expressアプリケーションの初期化
  */
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8001;
 
 // ==========================================
 // CORS設定 (全オリジン許可)
@@ -319,7 +319,7 @@ const fetchContinuationData = async (token) => {
  * 動画詳細および関連動画を取得するエンドポイント
  * IDパラメータには独自のエンコード形式が含まれる場合があります。
  */
-app.get("/api/video2/:id", async (req, res) => {
+app.get(["/api/video2/:id", "/video/:id"], async (req, res) => {
   // パラメータがURLエンコードされている場合があるためデコードする
   let rawVideoId = req.params.id;
   try {
