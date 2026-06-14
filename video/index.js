@@ -319,7 +319,7 @@ const fetchContinuationData = async (token) => {
  * 動画詳細および関連動画を取得するエンドポイント
  * IDパラメータには独自のエンコード形式が含まれる場合があります。
  */
-app.get(["/api/video2/:id", "/video/:id"], async (req, res) => {
+app.get(["/api/video/:id", "/video/:id"], async (req, res) => {
   // パラメータがURLエンコードされている場合があるためデコードする
   let rawVideoId = req.params.id;
   try {

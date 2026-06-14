@@ -7,7 +7,7 @@
 | API | Process name | File | Base URL |
 |---|---|---|---|
 | Comments | `comment-api` | `comment/index.js` | `https://siatube.com` |
-| Video | `video-api` | `video/index.js` | `https://siatube.com/video` |
+| Video | `video-api` | `video/index.js` | `https://siatube.com/` |
 | Search | `search-api` | `search/index.js` | `https://siatube.com` |
 | Channel | `channel-api` | `channel/index.js` | `https://siatube.com` |
 | Suggest | `suggest-api` | `suggest/index.js` | `https://siatube.com` |
@@ -213,9 +213,7 @@ Response:
 { "status": "ok" }
 ```
 
-### GET `/api/video2/:id`
-
-Alias: `/video/:id`
+### GET `/api/video/:id`
 
 動画詳細と関連動画を取得します。
 
@@ -234,10 +232,10 @@ Query:
 
 Supported parameter styles:
 
-- Standard: `/api/video2/dQw4w9WgXcQ?token=TOKEN`
-- Embedded: `/api/video2/dQw4w9WgXcQ====token==i==TOKEN==p==depth==i==2`
-- Embedded: `/api/video2/dQw4w9WgXcQ&token=TOKEN&depth=2`
-- Embedded: `/api/video2/dQw4w9WgXcQ==p==token==i==TOKEN`
+- Standard: `/api/video/dQw4w9WgXcQ?token=TOKEN`
+- Embedded: `/api/video/dQw4w9WgXcQ====token==i==TOKEN==p==depth==i==2`
+- Embedded: `/api/video/dQw4w9WgXcQ&token=TOKEN&depth=2`
+- Embedded: `/api/video/dQw4w9WgXcQ==p==token==i==TOKEN`
 
 Examples:
 
