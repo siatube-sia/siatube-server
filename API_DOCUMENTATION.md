@@ -6,12 +6,12 @@
 
 | API | Process name | File | Base URL |
 |---|---|---|---|
-| Comments | `comment-api` | `comment/index.js` | `http://localhost:8000` |
-| Video | `video-api` | `video/index.js` | `http://localhost:8001` |
-| Search | `search-api` | `search/index.js` | `http://localhost:8002` |
-| Channel | `channel-api` | `channel/index.js` | `http://localhost:8003` |
-| Suggest | `suggest-api` | `suggest/index.js` | `http://localhost:8004` |
-| Playlist | `playlist-api` | `playlist/index.js` | `http://localhost:8005` |
+| Comments | `comment-api` | `comment/index.js` | `https://siatube.com` |
+| Video | `video-api` | `video/index.js` | `https://siatube.com/video` |
+| Search | `search-api` | `search/index.js` | `https://siatube.com` |
+| Channel | `channel-api` | `channel/index.js` | `https://siatube.com` |
+| Suggest | `suggest-api` | `suggest/index.js` | `https://siatube.com` |
+| Playlist | `playlist-api` | `playlist/index.js` | `https://siatube.com` |
 
 ## 共通事項
 
@@ -22,14 +22,14 @@
 
 ## comment-api
 
-Base URL: `http://localhost:8000`
+Base URL: `https://siatube.com`
 
 ### GET `/`
 
 ヘルスチェック相当の簡易レスポンスです。
 
 ```bash
-curl 'http://localhost:8000/'
+curl 'https://siatube.com/'
 ```
 
 Response:
@@ -58,9 +58,9 @@ Query:
 Examples:
 
 ```bash
-curl 'http://localhost:8000/api/comments?videoId=dQw4w9WgXcQ'
-curl 'http://localhost:8000/api/comments?videoId=dQw4w9WgXcQ&sort=new'
-curl 'http://localhost:8000/api/comments?videoId=dQw4w9WgXcQ&continuation=CONTINUATION_TOKEN'
+curl 'https://siatube.com/api/comments?videoId=dQw4w9WgXcQ'
+curl 'https://siatube.com/api/comments?videoId=dQw4w9WgXcQ&sort=new'
+curl 'https://siatube.com/api/comments?videoId=dQw4w9WgXcQ&continuation=CONTINUATION_TOKEN'
 ```
 
 Response example:
@@ -135,7 +135,7 @@ Query:
 Example:
 
 ```bash
-curl 'http://localhost:8000/api/replies?videoId=dQw4w9WgXcQ&continuation=REPLIES_TOKEN'
+curl 'https://siatube.com/api/replies?videoId=dQw4w9WgXcQ&continuation=REPLIES_TOKEN'
 ```
 
 Response example:
@@ -192,19 +192,19 @@ Query:
 Example:
 
 ```bash
-curl 'http://localhost:8000/api/raw?videoId=dQw4w9WgXcQ&continuation=TOKEN'
+curl 'https://siatube.com/api/raw?videoId=dQw4w9WgXcQ&continuation=TOKEN'
 ```
 
 Response: YouTube から返った JSON をそのまま返します。
 
 ## video-api
 
-Base URL: `http://localhost:8001`
+Base URL: `https://siatube.com/video`
 
 ### GET `/health`
 
 ```bash
-curl 'http://localhost:8001/health'
+curl 'https://siatube.com/video/health'
 ```
 
 Response:
@@ -242,9 +242,9 @@ Supported parameter styles:
 Examples:
 
 ```bash
-curl 'http://localhost:8001/api/video2/dQw4w9WgXcQ'
-curl 'http://localhost:8001/video/dQw4w9WgXcQ?depth=2'
-curl 'http://localhost:8001/api/video2/dQw4w9WgXcQ?token=CONTINUATION_TOKEN'
+curl 'https://siatube.com/video/dQw4w9WgXcQ'
+curl 'https://siatube.com/video/dQw4w9WgXcQ?depth=2'
+curl 'https://siatube.com/video/dQw4w9WgXcQ?token=CONTINUATION_TOKEN'
 ```
 
 Initial response example:
@@ -354,7 +354,7 @@ Unavailable response example:
 
 ## search-api
 
-Base URL: `http://localhost:8002`
+Base URL: `https://siatube.com`
 
 ### GET `/search`
 
@@ -372,9 +372,9 @@ Query / Path:
 Examples:
 
 ```bash
-curl 'http://localhost:8002/search?q=猫'
-curl 'http://localhost:8002/search/猫'
-curl 'http://localhost:8002/search?token=CONTINUATION_TOKEN'
+curl 'https://siatube.com/search?q=猫'
+curl 'https://siatube.com/search/猫'
+curl 'https://siatube.com/search?token=CONTINUATION_TOKEN'
 ```
 
 Response example:
@@ -462,7 +462,7 @@ Errors:
 
 ## channel-api
 
-Base URL: `http://localhost:8003`
+Base URL: `https://siatube.com`
 
 ### GET `/api/channel/:id`
 
@@ -479,7 +479,7 @@ Path:
 Example:
 
 ```bash
-curl 'http://localhost:8003/api/channel/UCxxxxxxxxxxxxxxxxxxxxxx'
+curl 'https://siatube.com/api/channel/UCxxxxxxxxxxxxxxxxxxxxxx'
 ```
 
 Response example:
@@ -534,7 +534,7 @@ Errors:
 
 ## suggest-api
 
-Base URL: `http://localhost:8004`
+Base URL: `https://siatube.com`
 
 ### GET `/`
 
@@ -551,9 +551,9 @@ Query / Path:
 Examples:
 
 ```bash
-curl 'http://localhost:8004/?keyword=猫'
-curl 'http://localhost:8004/suggest?keyword=猫'
-curl 'http://localhost:8004/suggest/猫'
+curl 'https://siatube.com/?keyword=猫'
+curl 'https://siatube.com/suggest?keyword=猫'
+curl 'https://siatube.com/suggest/猫'
 ```
 
 Response example:
@@ -583,7 +583,7 @@ Errors:
 
 ## playlist-api
 
-Base URL: `http://localhost:8005`
+Base URL: `https://siatube.com`
 
 ### GET `/api/playlist/:id`
 
@@ -616,11 +616,11 @@ Supported parameter styles:
 Examples:
 
 ```bash
-curl 'http://localhost:8005/api/playlist/PLxxxxxxxxxxxxxxxx'
-curl 'http://localhost:8005/playlist/UCxxxxxxxxxxxxxxxxxxxxxx'
-curl 'http://localhost:8005/api/playlist/RDxxxxxxxxxxx?v=dQw4w9WgXcQ'
-curl 'http://localhost:8005/api/playlist/PLxxxxxxxxxxxxxxxx?token=NEXT_TOKEN'
-curl 'http://localhost:8005/api/playlist/UUxxxxxxxxxxxxxxxxxxxxxx====PLyyyyyyyyyyyyyyyy'
+curl 'https://siatube.com/api/playlist/PLxxxxxxxxxxxxxxxx'
+curl 'https://siatube.com/playlist/UCxxxxxxxxxxxxxxxxxxxxxx'
+curl 'https://siatube.com/api/playlist/RDxxxxxxxxxxx?v=dQw4w9WgXcQ'
+curl 'https://siatube.com/api/playlist/PLxxxxxxxxxxxxxxxx?token=NEXT_TOKEN'
+curl 'https://siatube.com/api/playlist/UUxxxxxxxxxxxxxxxxxxxxxx====PLyyyyyyyyyyyyyyyy'
 ```
 
 Normal response example:
