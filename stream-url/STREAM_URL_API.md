@@ -2,7 +2,7 @@
 
 この API は YouTube の `videoid` を受け取り、上流の `yt-dlp` worker から取得した動画・音声・HLS・字幕情報を、クライアントが扱いやすい形に正規化して返します。
 
-レスポンス重視で読む場合は、まず `GET /api/stream/:videoid` の成功レスポンスを確認してください。実レスポンスの完全なサンプルは `response.jsom` にあります。ユーザー指定は `response.json` でしたが、このリポジトリ内の実ファイル名は `response.jsom` です。
+レスポンス重視で読む場合は、まず `GET /api/stream/:videoid` の成功レスポンスを確認してください。
 
 ## 起動概要
 
