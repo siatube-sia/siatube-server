@@ -2,47 +2,6 @@
 
 この API は YouTube の `videoid` を受け取り、上流の `yt-dlp` worker から取得した動画・音声・HLS・字幕情報を、クライアントが扱いやすい形に正規化して返します。
 
-レスポンス重視で読む場合は、まず `GET /api/stream/:videoid` の成功レスポンスを確認してください。
-
-## 起動概要
-
-- `/api/stream/:videoid` でストリーム情報を取得する
-- 同じ `videoid` の同時リクエストを 1 回にまとめる
-- 取得済みレスポンスをメモリキャッシュする
-- 上流 worker を負荷に応じて選択する
-- 任意でダッシュボードを表示する
-- CORS と基本的なセキュリティヘッダーを付ける
-
-## 環境変数
-
-| 変数 | デフォルト | 説明 |
-| --- | --- | --- |
-| `HOST` | `0.0.0.0` | Listen するホスト |
-| `PORT` | `8006` | Listen するポート |
-| `UPSTREAM_WORKERS` | `http://192.168.11..` | カンマ区切りの上流 worker URL |
-| `UPSTREAM_WORKER_NAMES` | `Worker 1`, ... | worker 表示名。カンマ区切り |
-| `PRIMARY_WORKER_MAX_ACTIVE` | `3` | 先頭 worker に割り当てる最大同時処理数 |
-| `UPSTREAM_TIMEOUT_MS` | `180000` | 上流 worker へのタイムアウト |
-| `STREAM_CACHE_TTL_MS` | `21600000` | 正規化レスポンスのキャッシュ TTL。デフォルト 6 時間 |
-| `STREAM_CACHE_MAX_ENTRIES` | `500` | キャッシュ最大件数 |
-| `ENABLE_DASHBOARD` | `false` | ダッシュボードを有効化するか |
-| `DASHBOARD_TOKEN` | 空 | ダッシュボード用 Bearer/query token |
-| `CORS_ALLOW_ORIGINS` | `*` | CORS 許可 Origin。カンマ区切り |
-
-## 共通レスポンスヘッダー
-
-全レスポンスに以下が付与されます。
-
-| ヘッダー | 値 |
-| --- | --- |
-| `X-Content-Type-Options` | `nosniff` |
-| `Referrer-Policy` | `no-referrer` |
-| `Cache-Control` | `no-store` |
-| `Access-Control-Allow-Methods` | `GET,OPTIONS` |
-| `Access-Control-Allow-Headers` | `Content-Type,Authorization` |
-
-`CORS_ALLOW_ORIGINS=*` の場合は `Access-Control-Allow-Origin: *` が返ります。特定 Origin のみ許可する設定では、リクエストの `Origin` が許可リストに含まれる時だけその Origin が返ります。
-
 ## エンドポイント一覧
 
 | Method | Path | 説明 |
@@ -734,17 +693,6 @@ HTTP status: `404`
 }
 ```
 
-## ダッシュボード
-
-`ENABLE_DASHBOARD=true` の場合のみ有効です。
-
-`DASHBOARD_TOKEN` が設定されている場合は、次のどちらかで token を渡します。
-
-```bash
-curl -H 'Authorization: Bearer YOUR_TOKEN' 'http://localhost:8006/api/stream/dashboard/status'
-curl 'http://localhost:8006/api/stream/dashboard/status?token=YOUR_TOKEN'
-```
-
 ### 無効時
 
 HTTP status: `404`
@@ -764,58 +712,3 @@ HTTP status: `401`
   "error": "Unauthorized"
 }
 ```
-
-### GET /api/stream/dashboard/status 成功レスポンス
-
-```json
-{
-  "generatedAt": "2026-06-15T00:00:00.000Z",
-  "uptimeSeconds": 123,
-  "config": {
-    "port": 8006,
-    "primaryWorkerMaxActive": 3,
-    "streamCacheTtlMs": 21600000,
-    "workerNames": ["Worker 1", "Worker 2"]
-  },
-  "workers": [
-    {
-      "name": "Worker 1",
-      "active": 1,
-      "primary": true
-    },
-    {
-      "name": "Worker 2",
-      "active": 0,
-      "primary": false
-    }
-  ],
-  "inflight": {
-    "count": 1,
-    "items": [
-      {
-        "videoid": "v7fqWQ0BPfw",
-        "workerName": "Worker 1",
-        "startedAt": "2026-06-15T00:00:00.000Z",
-        "ageMs": 2500
-      }
-    ]
-  },
-  "cache": {
-    "count": 1,
-    "items": [
-      {
-        "videoid": "v7fqWQ0BPfw",
-        "title": "100万円分ドン・キホーテで好きなもの買ったらヤバイ量にwww",
-        "expiresAt": "2026-06-15T06:00:00.000Z",
-        "remainingMs": 21600000
-      }
-    ]
-  }
-}
-```
-
-## クライアント側の使い分け
-
-単純に再生できる URL が欲しい場合は、まず `streams.muxed` を見ます。高画質で処理したい場合は `streams.videoOnly` から映像を選び、`streams.audioByLanguage` から音声を選んで結合します。HLS 再生に対応したプレイヤーなら `m3u8.list` または `m3u8.byLanguage` を使います。字幕が必要な場合は `subtitles.manualByLanguage` を優先し、なければ `subtitles.automaticByLanguage` を使います。
-
-`streamUrl` は期限付き URL である可能性があります。API 側のキャッシュ TTL はデフォルト 6 時間ですが、上流の URL 期限がそれより短い場合もあるため、再生直前に取得する運用が安全です。
