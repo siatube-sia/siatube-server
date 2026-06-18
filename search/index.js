@@ -288,7 +288,7 @@ function extractYouTubeData(json) {
 // ==========================================
 // API エンドポイント
 // ==========================================
-app.get(["/search", "/search/:q"], async (req, res) => {
+app.get(["/api/search", "/api/search/:q"], async (req, res) => {
   try {
     const q = req.query.q || req.params.q;
     const token = req.query.token; 
