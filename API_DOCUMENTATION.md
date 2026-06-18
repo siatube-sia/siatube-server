@@ -354,9 +354,9 @@ Unavailable response example:
 
 Base URL: `https://siatube.com`
 
-### GET `/search`
+### GET `/api/search`
 
-Alias: `/search/:q`
+Alias: `/api/search/:q`
 
 YouTube 検索結果を取得します。初回検索は `q`、次ページ以降は `token` を使います。
 
@@ -370,9 +370,9 @@ Query / Path:
 Examples:
 
 ```bash
-curl 'https://siatube.com/search?q=猫'
-curl 'https://siatube.com/search/猫'
-curl 'https://siatube.com/search?token=CONTINUATION_TOKEN'
+curl 'https://siatube.com/api/search?q=猫'
+curl 'https://siatube.com/api/search/猫'
+curl 'https://siatube.com/api/search?token=CONTINUATION_TOKEN'
 ```
 
 Response example:
@@ -536,7 +536,7 @@ Base URL: `https://siatube.com`
 
 ### GET `/`
 
-Alias: `/suggest`, `/suggest/:keyword`
+Alias: `/api/suggest`, `/api/suggest/:keyword`
 
 Google Suggest の YouTube サジェストを取得します。
 
